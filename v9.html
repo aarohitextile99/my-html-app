@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aarohi Textile Pro V9</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root { --primary: #0f172a; --accent: #2563eb; }
+        body { background: #f1f5f9; font-size: 11px; font-family: sans-serif; padding-bottom: 20px; }
+        .card { border: none; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 10px; }
+        
+        /* High-Reliability Mobile Nav */
+        .nav-container { display: flex; gap: 5px; margin-bottom: 15px; background: #fff; padding: 5px; border-radius: 8px; }
+        .nav-btn { flex: 1; border: 1px solid #ddd; background: #f8fafc; padding: 8px 5px; font-size: 11px; font-weight: bold; border-radius: 5px; color: #64748b; }
+        .nav-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+        
+        .tab-content-custom { display: none; }
+        .tab-content-custom.active { display: block; }
+
+        .section-header { background: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-weight: 700; font-size: 10px; margin-bottom: 8px; text-transform: uppercase; }
+        .form-control-sm, .form-select-sm { font-size: 11px; height: 30px; padding: 2px 5px; }
+        
+        /* Compact Table with Wrap Headings */
+        .table-xs { width: 100%; border-collapse: collapse; background: white; table-layout: fixed; }
+        .table-xs th, .table-xs td { 
+            padding: 4px 1px; 
+            font-size: 9px !important; 
+            vertical-align: middle; 
+            text-align: center; 
+            border: 1px solid #dee2e6;
+            word-wrap: break-word;
+        }
+        .table-xs th { background-color: #334155; color: white; font-weight: bold; line-height: 1; }
+        
+        #printHeader { display: none; text-align: center; margin-bottom: 15px; border-bottom: 2px solid #000; padding-bottom: 10px; }
+        
+        @media print { 
+            .no-print { display: none !important; } 
+            #printHeader { display: block; }
+            body { background: white; }
+            .table-xs th { background: #eee !important; color: #000 !important; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid py-2">
+    <div id="printHeader">
+        <h3 style="margin:0;">AAROHI TEXTILE</h3>
+        <p style="font-size:12px; font-weight: bold; margin: 5px 0;">COSTING REPORT</p>
+        <div style="display: flex; justify-content: space-between; font-size: 9px; margin-top: 5px;">
+            <span>Date: <span id="printDate"></span></span>
+            <span>Olpad, Gujarat</span>
+        </div>
+    </div>
+
+    <div class="nav-container no-print">
+        <button class="nav-btn active" id="btn-entry" onclick="showTab('tab-entry')">Entry</button>
+        <button class="nav-btn" id="btn-master" onclick="showTab('tab-master')">Yarn Master</button>
+        <button class="nav-btn" id="btn-report" onclick="showTab('tab-report')">Report</button>
+    </div>
+
+    <div id="tab-master" class="tab-content-custom">
+        <div class="card p-3">
+            <h6 class="text-center">Yarn Master</h6>
+            <div class="row g-1 mb-2">
+                <div class="col-5"><input type="text" id="mYarnName" class="form-control form-control-sm" placeholder="Yarn Name"></div>
+                <div class="col-4"><input type="number" id="mYarnDenier" class="form-control form-control-sm" placeholder="Denier"></div>
+                <div class="col-3"><button onclick="saveYarn()" class="btn btn-primary btn-sm w-100">Add</button></div>
+            </div>
+            <table class="table-xs">
+                <thead><tr class="table-light"><th>Yarn Name</th><th>Denier</th><th>Del</th></tr></thead>
+                <tbody id="yarnMasterBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="tab-entry" class="tab-content-custom active">
+        <div class="card p-2">
+            <div class="mb-2">
+                <label class="fw-bold mb-0">Quality Name</label>
+                <input type="text" id="qualityName" class="form-control form-control-sm" placeholder="Enter Quality">
+            </div>
+            <div class="row g-2">
+                <div class="col-6" style="border-right: 1px solid #eee;">
+                    <div class="section-header">WARP</div>
+                    <select id="warpYarnSelect" class="form-select form-select-sm mb-1" onchange="autoFillDenier('warp')"></select>
+                    <div class="row g-1">
+                        <div class="col-6"><label class="small">TAAR</label><input type="number" id="tar" class="form-control form-control-sm"></div>
+                        <div class="col-6"><label class="small">Den</label><input type="number" id="denier" class="form-control form-control-sm"></div>
+                    </div>
+                    <label class="small mt-1">Warp Rate</label><input type="number" id="warpRate" class="form-control form-control-sm">
+                </div>
+                <div class="col-6">
+                    <div class="section-header">WEFT</div>
+                    <select id="weftYarnSelect" class="form-select form-select-sm mb-1" onchange="autoFillDenier('weft')"></select>
+                    <div class="row g-1">
+                        <div class="col-4"><label class="small">PIK</label><input type="number" id="pik" class="form-control form-control-sm"></div>
+                        <div class="col-4"><label class="small">Den2</label><input type="number" id="denier2" class="form-control form-control-sm"></div>
+                        <div class="col-4"><label class="small">Pan</label><input type="number" id="panna" class="form-control form-control-sm"></div>
+                    </div>
+                    <div class="row g-1 mt-1">
+                        <div class="col-6"><label class="small">Weft Rate</label><input type="number" id="weftRate" class="form-control form-control-sm"></div>
+                        <div class="col-6">
+                            <label class="small">TPM</label>
+                            <select id="tpmCost" class="form-select form-select-sm">
+                                <option value="0">0</option><option value="20">20</option><option value="30">30</option><option value="40">40</option><option value="50">50</option><option value="60">60</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3 no-print d-flex gap-1">
+                <button onclick="navigateEntry(-1)" class="btn btn-outline-secondary btn-sm w-25">Prev</button>
+                <button onclick="navigateEntry(1)" class="btn btn-outline-secondary btn-sm w-25">Next</button>
+                <button onclick="saveData()" class="btn btn-primary btn-sm w-50">Save & Sync</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="tab-report" class="tab-content-custom">
+        <div class="card p-1">
+            <div class="d-flex gap-1 mb-1 no-print">
+                <input type="text" id="rSearch" class="form-control form-control-sm" placeholder="Search..." onkeyup="renderReport()">
+                <button class="btn btn-dark btn-sm" onclick="window.print()">Print</button>
+            </div>
+            <div class="table-responsive">
+                <table class="table-xs">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">Quality Name</th>
+                            <th>Taar</th>
+                            <th>Warp Wt</th>
+                            <th>Weft Wt</th>
+                            <th>Total Wt</th>
+                            <th>Warp Rate</th>
+                            <th>Weft Rate</th>
+                            <th>Final Rate</th>
+                            <th class="no-print">WA</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const CLOUD_URL = "https://script.google.com/macros/s/AKfycbzpQrE9iHUHZpPgHgKaiQDDuwnud867OWQALshVvq1dPhQ-Pl_A5v6mwpMveq5deylj/exec";
+    let entries = JSON.parse(localStorage.getItem('aarohiData')) || [];
+    let yarnMaster = JSON.parse(localStorage.getItem('yarnMaster')) || [];
+    let currentIndex = -1;
+
+    function showTab(tabId) {
+        document.querySelectorAll('.tab-content-custom').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        document.getElementById('btn-' + tabId.split('-')[1]).classList.add('active');
+        if(tabId === 'tab-report') renderReport();
+    }
+
+    function saveYarn() {
+        const name = document.getElementById('mYarnName').value;
+        const denier = document.getElementById('mYarnDenier').value;
+        if(!name || !denier) return;
+        yarnMaster.push({ name, denier });
+        localStorage.setItem('yarnMaster', JSON.stringify(yarnMaster));
+        updateYarnUI();
+        document.getElementById('mYarnName').value = ''; document.getElementById('mYarnDenier').value = '';
+    }
+
+    function updateYarnUI() {
+        let opt = '<option value="">Select Yarn</option>';
+        yarnMaster.forEach(y => opt += `<option value="${y.name}" data-den="${y.denier}">${y.name}</option>`);
+        document.getElementById('warpYarnSelect').innerHTML = opt;
+        document.getElementById('weftYarnSelect').innerHTML = opt;
+        let html = '';
+        yarnMaster.forEach((y, i) => html += `<tr><td>${y.name}</td><td>${y.denier}</td><td><button onclick="deleteYarn(${i})" class="btn btn-sm text-danger p-0">X</button></td></tr>`);
+        document.getElementById('yarnMasterBody').innerHTML = html;
+    }
+
+    function deleteYarn(i) {
+        if(confirm("Delete Yarn?")) { yarnMaster.splice(i,1); localStorage.setItem('yarnMaster', JSON.stringify(yarnMaster)); updateYarnUI(); }
+    }
+
+    function autoFillDenier(type) {
+        const sel = document.getElementById(type === 'warp' ? 'warpYarnSelect' : 'weftYarnSelect');
+        const den = document.getElementById(type === 'warp' ? 'denier' : 'denier2');
+        if(sel.options[sel.selectedIndex].dataset.den) den.value = sel.options[sel.selectedIndex].dataset.den;
+    }
+
+    async function saveData() {
+        const q = document.getElementById('qualityName').value;
+        if(!q) return alert("Quality Name required");
+
+        const data = {
+            date: new Date().toLocaleDateString('en-GB'),
+            quality: q,
+            tar: parseFloat(document.getElementById('tar').value) || 0,
+            denier: parseFloat(document.getElementById('denier').value) || 0,
+            warpRate: parseFloat(document.getElementById('warpRate').value) || 0,
+            pik: parseFloat(document.getElementById('pik').value) || 0,
+            denier2: parseFloat(document.getElementById('denier2').value) || 0,
+            panna: parseFloat(document.getElementById('panna').value) || 0,
+            weftRate: parseFloat(document.getElementById('weftRate').value) || 0,
+            tpm: parseFloat(document.getElementById('tpmCost').value) || 0
+        };
+
+        const r1wet = (data.tar * data.denier * 110) / 9000000;
+        const r2wet = (data.pik * data.denier2 * data.panna * 110) / 9000000;
+        const finalCost = (((r1wet * (data.warpRate + 2) * 1.05)/100) + ((r2wet * (data.weftRate + 2 + data.tpm) * 1.05)/100)).toFixed(2);
+
+        const full = {...data, r1wet: r1wet.toFixed(3), r2wet: r2wet.toFixed(3), totalWt: (r1wet + r2wet).toFixed(3), finalCost};
+
+        if(currentIndex > -1) entries[currentIndex] = full; else entries.push(full);
+        localStorage.setItem('aarohiData', JSON.stringify(entries));
+        
+        fetch(CLOUD_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(full) });
+
+        // Reset form
+        document.getElementById('qualityName').value = '';
+        document.getElementById('tar').value = '';
+        document.getElementById('denier').value = '';
+        document.getElementById('warpRate').value = '';
+        document.getElementById('pik').value = '';
+        document.getElementById('denier2').value = '';
+        document.getElementById('panna').value = '';
+        document.getElementById('weftRate').value = '';
+        document.getElementById('tpmCost').value = '0';
+        document.getElementById('warpYarnSelect').selectedIndex = 0;
+        document.getElementById('weftYarnSelect').selectedIndex = 0;
+        currentIndex = -1;
+        alert("Saved!");
+    }
+
+    function renderReport() {
+        document.getElementById('printDate').innerText = new Date().toLocaleDateString();
+        const s = document.getElementById('rSearch').value.toLowerCase();
+        const b = document.getElementById('rTableBody'); b.innerHTML = '';
+        entries.forEach((item, index) => {
+            if(item.quality.toLowerCase().includes(s)) {
+                b.innerHTML += `<tr>
+                    <td class="fw-bold" style="text-align: left; padding-left: 3px;">${item.quality}</td>
+                    <td>${item.tar}</td>
+                    <td>${item.r1wet}</td>
+                    <td>${item.r2wet}</td>
+                    <td>${item.totalWt}</td>
+                    <td>${item.warpRate}</td>
+                    <td>${item.weftRate}</td>
+                    <td class="fw-bold text-primary">₹${item.finalCost}</td>
+                    <td class="no-print"><button onclick="sendWA(${index})" class="btn btn-success btn-sm p-0 w-100" style="font-size:8px">WA</button></td>
+                </tr>`;
+            }
+        });
+    }
+
+    function sendWA(idx) {
+        const i = entries[idx];
+        const msg = `*AAROHI TEXTILE*%0AQuality: ${i.quality}%0ATar: ${i.tar}%0AWarp Weight: ${i.r1wet}%0AWeft Weight: ${i.r2wet}%0AFinal Rate: ₹${i.finalCost}`;
+        window.open(`https://wa.me/?text=${msg}`, '_blank');
+    }
+
+    function navigateEntry(dir) {
+        if(!entries.length) return;
+        currentIndex = (currentIndex === -1) ? (dir === 1 ? 0 : entries.length-1) : (currentIndex + dir + entries.length) % entries.length;
+        const i = entries[currentIndex];
+        document.getElementById('qualityName').value = i.quality;
+        document.getElementById('tar').value = i.tar;
+        document.getElementById('denier').value = i.denier;
+        document.getElementById('warpRate').value = i.warpRate;
+        document.getElementById('pik').value = i.pik;
+        document.getElementById('denier2').value = i.denier2;
+        document.getElementById('panna').value = i.panna;
+        document.getElementById('weftRate').value = i.weftRate;
+        document.getElementById('tpmCost').value = i.tpm;
+        showTab('tab-entry');
+    }
+
+    updateYarnUI();
+</script>
+</body>
+</html>
