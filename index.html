@@ -152,6 +152,17 @@
     let entries = JSON.parse(localStorage.getItem('aarohiData')) || [];
     let yarnMaster = JSON.parse(localStorage.getItem('yarnMaster')) || [];
     let currentIndex = -1;
+    // 🔥 LOAD DATA FROM GOOGLE SHEET
+fetch(CLOUD_URL)
+  .then(res => res.json())
+  .then(data => {
+    if (Array.isArray(data)) {
+      entries = data;
+      localStorage.setItem('aarohiData', JSON.stringify(entries));
+      renderReport();
+    }
+  })
+  .catch(err => console.error("Error loading data:", err));
 
     function showTab(tabId) {
         document.querySelectorAll('.tab-content-custom').forEach(t => t.classList.remove('active'));
