@@ -152,17 +152,6 @@
     let entries = JSON.parse(localStorage.getItem('aarohiData')) || [];
     let yarnMaster = JSON.parse(localStorage.getItem('yarnMaster')) || [];
     let currentIndex = -1;
-    // 🔥 LOAD DATA FROM GOOGLE SHEET
-fetch(CLOUD_URL)
-  .then(res => res.json())
-  .then(data => {
-    if (Array.isArray(data)) {
-      entries = data;
-      localStorage.setItem('aarohiData', JSON.stringify(entries));
-      renderReport();
-    }
-  })
-  .catch(err => console.error("Error loading data:", err));
 
     function showTab(tabId) {
         document.querySelectorAll('.tab-content-custom').forEach(t => t.classList.remove('active'));
@@ -261,8 +250,8 @@ fetch(CLOUD_URL)
                     <td>${item.warpRate}</td>
                     <td>${item.weftRate}</td>
                     <td class="fw-bold text-primary">₹${item.finalCost}</td>
-                    <td class="no-print"><button onclick="sendWA(${index})" class="btn btn-success btn-sm p-0 w-100" style="font-size:8px">WA</button></td>
-                </tr>`;
+                    <td class="no-print"><button onclick="deleteEntry(${index})" style="color:red; font-size:14px; font-weight:bold; border:none; background:none;">✖</button></td>
+</tr>`;
             }
         });
     }
@@ -274,7 +263,11 @@ fetch(CLOUD_URL)
     }
 
     function navigateEntry(dir) {
-        if(!entries.length) return;
+        
+
+
+
+if(!entries.length) return;
         currentIndex = (currentIndex === -1) ? (dir === 1 ? 0 : entries.length-1) : (currentIndex + dir + entries.length) % entries.length;
         const i = entries[currentIndex];
         document.getElementById('qualityName').value = i.quality;
@@ -289,6 +282,26 @@ fetch(CLOUD_URL)
         showTab('tab-entry');
     }
 
+
+function deleteEntry(index) {
+    if(!confirm("Delete this record?")) return;
+
+    entries.splice(index, 1);
+    localStorage.setItem('aarohiData', JSON.stringify(entries));
+
+    renderReport();
+    syncToSheet();
+}
+
+function syncToSheet() {
+    fetch(CLOUD_URL, {
+        method: "POST",
+        body: JSON.stringify({
+            action: "reset",
+            data: entries
+        })
+    });
+}
     updateYarnUI();
 </script>
 </body>
