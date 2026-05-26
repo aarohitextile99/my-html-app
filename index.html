@@ -12,14 +12,23 @@
         
         /* High-Reliability Mobile Nav */
         .nav-container { display: flex; gap: 5px; margin-bottom: 15px; background: #fff; padding: 5px; border-radius: 8px; }
-        .nav-btn { flex: 1; border: 1px solid #ddd; background: #f8fafc; padding: 8px 5px; font-size: 11px; font-weight: bold; border-radius: 5px; color: #64748b; }
+        .nav-btn { flex: 1; border: 1px solid #ddd; background: #f8fafc; padding: 8px 5px; font-size: 11px; font-weight: bold; border-radius: 6px; color: #64748b; transition: background .2s, color .2s; }
         .nav-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+.nav-btn:hover:not(.active) { background: #e2e8f0; }
         
         .tab-content-custom { display: none; }
         .tab-content-custom.active { display: block; }
 
+        /* Sub-tabs inside MASTER */
+        .sub-tab-nav { display: flex; gap: 4px; margin-bottom: 10px; }
+        .sub-tab-btn { flex: 1; border: 1px solid #cbd5e1; background: #f1f5f9; padding: 5px 4px; font-size: 10px; font-weight: 700; border-radius: 4px; color: #475569; cursor: pointer; text-align: center; }
+        .sub-tab-btn.active { background: #2563eb; color: #fff; border-color: #2563eb; }
+        .sub-tab-panel { display: none; }
+        .sub-tab-panel.active { display: block; }
+
         .section-header { background: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-weight: 700; font-size: 10px; margin-bottom: 8px; text-transform: uppercase; }
         .form-control-sm, .form-select-sm { font-size: 11px; height: 30px; padding: 2px 5px; }
+        .form-control:focus, .form-select:focus { border-color: var(--accent); box-shadow: 0 0 0 .2rem rgba(37,99,235,0.25); }
         
         /* Compact Table with Wrap Headings */
         .table-xs { width: 100%; border-collapse: collapse; background: white; table-layout: fixed; }
@@ -41,6 +50,62 @@
             body { background: white; }
             .table-xs th { background: #eee !important; color: #000 !important; }
         }
+
+        /* Entry Summary Panel */
+        .summary-panel { background: linear-gradient(135deg, #e8f0fe 0%, #dbeafe 60%, #ede9fe 100%); border-radius: 10px; padding: 10px; margin-top: 10px; border: 1px solid #bfdbfe; }
+        .summary-title { color: #475569; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; text-align: center; }
+        .summary-quality { color: #1e3a5f; font-size: 14px; font-weight: 800; text-align: center; margin-bottom: 6px; letter-spacing: 0.5px; }
+        .summary-date { color: #64748b; font-size: 9px; font-weight: 600; text-align: center; margin-bottom: 8px; }
+        .summary-yarn-row { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 6px; }
+        .summary-yarn-box { background: rgba(255,255,255,0.7); border-radius: 6px; padding: 4px 6px; max-width: 44%; border: 1px solid #bfdbfe; }
+        .summary-yarn-box .sy-name { font-size: 8px; font-weight: 700; color: #1e40af; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .summary-yarn-box .sy-rate { font-size: 11px; font-weight: 800; color: #0f172a; }
+        .summary-yarn-box.right { text-align: right; }
+        .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+        .summary-tile { border-radius: 6px; padding: 6px 4px; text-align: center; }
+        .summary-tile .s-label { font-size: 8px; font-weight: 600; text-transform: uppercase; opacity: 0.8; margin-bottom: 2px; }
+        .summary-tile .s-value { font-size: 12px; font-weight: 800; }
+        .tile-blue   { background: rgba(37,99,235,0.15); color: #1d4ed8; }
+        .tile-green  { background: rgba(16,185,129,0.15); color: #047857; }
+        .tile-purple { background: rgba(139,92,246,0.15); color: #6d28d9; }
+        .tile-orange { background: rgba(245,158,11,0.15); color: #b45309; }
+        .tile-pink   { background: rgba(236,72,153,0.15); color: #be185d; }
+        .tile-teal   { background: rgba(20,184,166,0.15); color: #0f766e; }
+        .tile-cost   { background: linear-gradient(135deg,#1e3a5f,#2563eb); color: #fff; grid-column: span 3; padding: 8px; }
+        .tile-cost .s-label { font-size: 9px; opacity: 0.9; }
+        /* Entry Page Department Styling */
+        .warp-box { background: #e0f2ff; border: 1.5px solid #90caff; border-radius: 8px; padding: 8px 7px 6px; box-shadow: 0 2px 4px rgba(37,99,235,0.2); }
+        .weft-box { background: #e6ffed; border: 1.5px solid #86efac; border-radius: 8px; padding: 8px 7px 6px; box-shadow: 0 2px 4px rgba(5,150,105,0.2); }
+        .dept-header { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 7px; border-radius: 4px; margin-bottom: 7px; text-align: center; display: inline-block; }
+        .warp-header { background: #2563eb; color: #fff; }
+        .weft-header { background: #059669; color: #fff; }
+        .entry-label { font-size: 10px; font-weight: 700; color: #475569; margin-bottom: 2px; display: block; }
+        .warp-box .form-control, .warp-box .form-select { border-color: #93c5fd; background: #fff; }
+        .weft-box .form-control, .weft-box .form-select { border-color: #6ee7b7; background: #fff; }
+        .quality-select-wrap { background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 8px; padding: 8px 8px 6px; margin-bottom: 10px; }
+        .quality-select-wrap label { font-size: 11px; font-weight: 800; color: #1e3a5f; letter-spacing: 0.5px; margin-bottom: 4px; display: block; }
+        /* Button enhancements */
+        .btn-sm {
+            border-radius: 6px;
+            font-weight: 600;
+            padding: .25rem .5rem;
+        }
+        .btn-primary {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+        .btn-primary:hover {
+            background: #1d4ed8;
+            border-color: #1d4ed8;
+        }
+        .btn-outline-secondary {
+            color: #475569;
+            border-color: #cbd5e1;
+        }
+        .btn-outline-secondary:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
     </style>
 </head>
 <body>
@@ -57,22 +122,83 @@
 
     <div class="nav-container no-print">
         <button class="nav-btn active" id="btn-entry" onclick="showTab('tab-entry')">Entry</button>
-        <button class="nav-btn" id="btn-master" onclick="showTab('tab-master')">Yarn Master</button>
+        <button class="nav-btn" id="btn-master" onclick="showTab('tab-master')">MASTER</button>
         <button class="nav-btn" id="btn-report" onclick="showTab('tab-report')">Report</button>
     </div>
 
     <div id="tab-master" class="tab-content-custom">
         <div class="card p-3">
-            <h6 class="text-center">Yarn Master</h6>
-            <div class="row g-1 mb-2">
-                <div class="col-5"><input type="text" id="mYarnName" class="form-control form-control-sm" placeholder="Yarn Name"></div>
-                <div class="col-4"><input type="number" id="mYarnDenier" class="form-control form-control-sm" placeholder="Denier"></div>
-                <div class="col-3"><button onclick="saveYarn()" class="btn btn-primary btn-sm w-100">Add</button></div>
+            <!-- Sub-tab navigation -->
+            <div class="sub-tab-nav">
+                <button class="sub-tab-btn active" id="sub-btn-yarn" onclick="showSubTab('sub-yarn')">Yarn Master</button>
+                <button class="sub-tab-btn" id="sub-btn-quality" onclick="showSubTab('sub-quality')">Quality Master</button>
             </div>
-            <table class="table-xs">
-                <thead><tr class="table-light"><th>Yarn Name</th><th>Denier</th><th>Del</th></tr></thead>
-                <tbody id="yarnMasterBody"></tbody>
-            </table>
+
+            <!-- Yarn Master sub-tab -->
+            <div id="sub-yarn" class="sub-tab-panel active">
+                <div class="row g-1 mb-2">
+                    <div class="col-5"><input type="text" id="mYarnName" class="form-control form-control-sm" placeholder="Yarn Name"></div>
+                    <div class="col-4"><input type="number" id="mYarnDenier" class="form-control form-control-sm" placeholder="Denier"></div>
+                    <div class="col-3"><button onclick="saveYarn()" class="btn btn-primary btn-sm w-100">Add</button></div>
+                </div>
+                <table class="table-xs">
+                    <thead><tr class="table-light"><th>Yarn Name</th><th>Denier</th><th>Del</th></tr></thead>
+                    <tbody id="yarnMasterBody"></tbody>
+                </table>
+            </div>
+
+            <!-- Quality Master sub-tab -->
+            <div id="sub-quality" class="sub-tab-panel">
+                <!-- Quality Name -->
+                <div class="mb-1">
+                    <input type="text" id="qmName" class="form-control form-control-sm" placeholder="Quality Name">
+                </div>
+                <!-- Warp + Weft two-column form -->
+                <div class="row g-2 mb-2">
+                    <!-- WARP -->
+                    <div class="col-6" style="border-right:1px solid #eee;">
+                        <div class="section-header">WARP</div>
+                        <select id="qmWarpYarn" class="form-select form-select-sm mb-1" onchange="qmAutoDenier('warp')">
+                            <option value="">Yarn</option>
+                        </select>
+                        <div class="row g-1">
+                            <div class="col-6"><label class="small">Tar</label><input type="number" id="qmTar" class="form-control form-control-sm"></div>
+                            <div class="col-6"><label class="small">Den</label><input type="number" id="qmDenier" class="form-control form-control-sm"></div>
+                        </div>
+                    </div>
+                    <!-- WEFT -->
+                    <div class="col-6">
+                        <div class="section-header">WEFT</div>
+                        <select id="qmWeftYarn" class="form-select form-select-sm mb-1" onchange="qmAutoDenier('weft')">
+                            <option value="">Yarn</option>
+                        </select>
+                        <div class="row g-1">
+                            <div class="col-3"><label class="small">Pik</label><input type="number" id="qmPik" class="form-control form-control-sm"></div>
+                            <div class="col-3"><label class="small">Den2</label><input type="number" id="qmDenier2" class="form-control form-control-sm"></div>
+                            <div class="col-3"><label class="small">Pan</label><input type="number" id="qmPanna" class="form-control form-control-sm"></div>
+                            <div class="col-3">
+                                <label class="small">TPM</label>
+                                <select id="qmTpm" class="form-select form-select-sm">
+                                    <option value="0">0</option><option value="20">20</option><option value="30">30</option><option value="40">40</option><option value="50">50</option><option value="60">60</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="saveQuality()" class="btn btn-primary btn-sm w-100 mb-2">Add Quality</button>
+                <!-- Compact table -->
+                <div class="table-responsive">
+                    <table class="table-xs">
+                        <thead><tr>
+                            <th style="width:28%;text-align:left;padding-left:3px;">Quality</th>
+                            <th>W-Yarn</th><th>Tar</th><th>Den</th>
+                            <th>Wf-Yarn</th><th>Pik</th><th>Den2</th><th>Pan</th><th>TPM</th>
+                            <th>Del</th>
+                        </tr></thead>
+                        <tbody id="qualityMasterBody"></tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -80,7 +206,9 @@
         <div class="card p-2">
             <div class="mb-2">
                 <label class="fw-bold mb-0">Quality Name</label>
-                <input type="text" id="qualityName" class="form-control form-control-sm" placeholder="Enter Quality">
+                <select id="qualityName" class="form-select form-select-sm" onchange="autoFillQuality()">
+                    <option value="">Select Quality</option>
+                </select>
             </div>
             <div class="row g-2">
                 <div class="col-6" style="border-right: 1px solid #eee;">
@@ -111,10 +239,58 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-3 no-print d-flex gap-1">
-                <button onclick="navigateEntry(-1)" class="btn btn-outline-secondary btn-sm w-25">Prev</button>
-                <button onclick="navigateEntry(1)" class="btn btn-outline-secondary btn-sm w-25">Next</button>
-                <button onclick="saveData()" class="btn btn-primary btn-sm w-50">Save & Sync</button>
+            <div class="mt-2 no-print d-flex gap-1">
+                <button onclick="navigateEntry(-1)" class="btn btn-outline-secondary btn-sm" style="flex:1;">&#9664; Prev</button>
+                <button onclick="saveData()" class="btn btn-primary btn-sm" style="flex:2;font-weight:700;">&#128190; Save &amp; Sync</button>
+                <button onclick="navigateEntry(1)" class="btn btn-outline-secondary btn-sm" style="flex:1;">Next &#9654;</button>
+            </div>
+
+            <!-- Live Summary Panel -->
+            <div class="summary-panel no-print" id="summaryPanel" style="display:none;">
+                <div class="summary-title">&#9881; Quality Summary</div>
+                <div class="summary-quality" id="sQuality">—</div>
+                <div class="summary-date" id="sDate"></div>
+                <!-- Yarn Rate Header Row -->
+                <div class="summary-yarn-row">
+                    <div class="summary-yarn-box">
+                        <div class="sy-name" id="sWarpYarnName">—</div>
+                        <div class="sy-rate">Rate: <span id="sWarpRate">—</span></div>
+                    </div>
+                    <div class="summary-yarn-box right">
+                        <div class="sy-name" id="sWeftYarnName">—</div>
+                        <div class="sy-rate">Rate: <span id="sWeftRate">—</span></div>
+                    </div>
+                </div>
+                <div class="summary-grid">
+                    <div class="summary-tile tile-blue">
+                        <div class="s-label">Warp Wt</div>
+                        <div class="s-value" id="sWarpWt">—</div>
+                    </div>
+                    <div class="summary-tile tile-green">
+                        <div class="s-label">Weft Wt</div>
+                        <div class="s-value" id="sWeftWt">—</div>
+                    </div>
+                    <div class="summary-tile tile-purple">
+                        <div class="s-label">Total Wt</div>
+                        <div class="s-value" id="sTotalWt">—</div>
+                    </div>
+                    <div class="summary-tile tile-orange">
+                        <div class="s-label">Pik</div>
+                        <div class="s-value" id="sPik">—</div>
+                    </div>
+                    <div class="summary-tile tile-pink">
+                        <div class="s-label">Panna</div>
+                        <div class="s-value" id="sPanna">—</div>
+                    </div>
+                    <div class="summary-tile tile-teal">
+                        <div class="s-label">TPM</div>
+                        <div class="s-value" id="sTpm">—</div>
+                    </div>
+                    <div class="summary-tile tile-cost">
+                        <div class="s-label">&#8377; Final Costing</div>
+                        <div class="s-value" id="sCost">—</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -129,15 +305,18 @@
                 <table class="table-xs">
                     <thead>
                         <tr>
-                            <th style="width: 20%;">Quality Name</th>
+                            <th style="width:12%;">Date</th>
+                            <th style="width:16%;">Quality</th>
                             <th>Taar</th>
                             <th>Warp Wt</th>
                             <th>Weft Wt</th>
                             <th>Total Wt</th>
                             <th>Warp Rate</th>
                             <th>Weft Rate</th>
+                            <th>Panna</th>
+                            <th>TPM</th>
                             <th>Final Rate</th>
-                            <th class="no-print">WA</th>
+                            <th class="no-print">Del</th>
                         </tr>
                     </thead>
                     <tbody id="rTableBody"></tbody>
@@ -151,14 +330,25 @@
     const CLOUD_URL = "https://script.google.com/macros/s/AKfycbzpQrE9iHUHZpPgHgKaiQDDuwnud867OWQALshVvq1dPhQ-Pl_A5v6mwpMveq5deylj/exec";
     let entries = JSON.parse(localStorage.getItem('aarohiData')) || [];
     let yarnMaster = JSON.parse(localStorage.getItem('yarnMaster')) || [];
+    let qualityMaster = JSON.parse(localStorage.getItem('qualityMaster')) || [];
     let currentIndex = -1;
 
     function showTab(tabId) {
         document.querySelectorAll('.tab-content-custom').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
         document.getElementById(tabId).classList.add('active');
-        document.getElementById('btn-' + tabId.split('-')[1]).classList.add('active');
+        // Map tab id to button id
+        const btnMap = { 'tab-entry': 'btn-entry', 'tab-master': 'btn-master', 'tab-report': 'btn-report' };
+        if(btnMap[tabId]) document.getElementById(btnMap[tabId]).classList.add('active');
         if(tabId === 'tab-report') renderReport();
+    }
+
+    function showSubTab(subId) {
+        document.querySelectorAll('.sub-tab-panel').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(subId).classList.add('active');
+        const btnMap = { 'sub-yarn': 'sub-btn-yarn', 'sub-quality': 'sub-btn-quality' };
+        if(btnMap[subId]) document.getElementById(btnMap[subId]).classList.add('active');
     }
 
     function saveYarn() {
@@ -174,8 +364,13 @@
     function updateYarnUI() {
         let opt = '<option value="">Select Yarn</option>';
         yarnMaster.forEach(y => opt += `<option value="${y.name}" data-den="${y.denier}">${y.name}</option>`);
+        // Entry page yarn dropdowns
         document.getElementById('warpYarnSelect').innerHTML = opt;
         document.getElementById('weftYarnSelect').innerHTML = opt;
+        // Quality Master form yarn dropdowns
+        const qmOpt = '<option value="">Yarn</option>' + yarnMaster.map(y => `<option value="${y.name}" data-den="${y.denier}">${y.name}</option>`).join('');
+        document.getElementById('qmWarpYarn').innerHTML = qmOpt;
+        document.getElementById('qmWeftYarn').innerHTML = qmOpt;
         let html = '';
         yarnMaster.forEach((y, i) => html += `<tr><td>${y.name}</td><td>${y.denier}</td><td><button onclick="deleteYarn(${i})" class="btn btn-sm text-danger p-0">X</button></td></tr>`);
         document.getElementById('yarnMasterBody').innerHTML = html;
@@ -185,6 +380,87 @@
         if(confirm("Delete Yarn?")) { yarnMaster.splice(i,1); localStorage.setItem('yarnMaster', JSON.stringify(yarnMaster)); updateYarnUI(); }
     }
 
+    function qmAutoDenier(type) {
+        const sel = document.getElementById(type === 'warp' ? 'qmWarpYarn' : 'qmWeftYarn');
+        const opt = sel.options[sel.selectedIndex];
+        if(type === 'warp' && opt.dataset.den) document.getElementById('qmDenier').value = opt.dataset.den;
+        if(type === 'weft' && opt.dataset.den) document.getElementById('qmDenier2').value = opt.dataset.den;
+    }
+
+    function saveQuality() {
+        const name     = document.getElementById('qmName').value.trim();
+        const warpYarn = document.getElementById('qmWarpYarn').value;
+        const tar      = document.getElementById('qmTar').value;
+        const denier   = document.getElementById('qmDenier').value;
+        const weftYarn = document.getElementById('qmWeftYarn').value;
+        const pik      = document.getElementById('qmPik').value;
+        const denier2  = document.getElementById('qmDenier2').value;
+        const panna    = document.getElementById('qmPanna').value;
+        const tpm      = document.getElementById('qmTpm').value;
+        if(!name) return alert('Quality Name required');
+        qualityMaster.push({ name, warpYarn, tar, denier, weftYarn, pik, denier2, panna, tpm });
+        localStorage.setItem('qualityMaster', JSON.stringify(qualityMaster));
+        updateQualityUI();
+        // clear form
+        document.getElementById('qmName').value = '';
+        document.getElementById('qmWarpYarn').selectedIndex = 0;
+        document.getElementById('qmTar').value = '';
+        document.getElementById('qmDenier').value = '';
+        document.getElementById('qmWeftYarn').selectedIndex = 0;
+        document.getElementById('qmPik').value = '';
+        document.getElementById('qmDenier2').value = '';
+        document.getElementById('qmPanna').value = '';
+        document.getElementById('qmTpm').value = '0';
+    }
+
+    function updateQualityUI() {
+        // Rebuild table
+        let html = '';
+        qualityMaster.forEach((q, i) => {
+            html += `<tr>
+                <td style="text-align:left;padding-left:3px;">${q.name}</td>
+                <td>${q.warpYarn||''}</td><td>${q.tar||''}</td><td>${q.denier||''}</td>
+                <td>${q.weftYarn||''}</td><td>${q.pik||''}</td><td>${q.denier2||''}</td><td>${q.panna||''}</td><td>${q.tpm||0}</td>
+                <td><button onclick="deleteQuality(${i})" style="color:red;font-size:13px;font-weight:bold;border:none;background:none;line-height:1;">&#10005;</button></td>
+            </tr>`;
+        });
+        document.getElementById('qualityMasterBody').innerHTML = html;
+        // Rebuild Entry page quality dropdown
+        let qOpt = '<option value="">Select Quality</option>';
+        qualityMaster.forEach(q => qOpt += `<option value="${q.name}">${q.name}</option>`);
+        document.getElementById('qualityName').innerHTML = qOpt;
+    }
+
+    function autoFillQuality() {
+        const sel = document.getElementById('qualityName');
+        const name = sel.value;
+        const q = qualityMaster.find(x => x.name === name);
+        if(!q) return;
+        // Clear rates — must be entered fresh for every new record
+        document.getElementById('warpRate').value = '';
+        document.getElementById('weftRate').value = '';
+        // Warp
+        const warpSel = document.getElementById('warpYarnSelect');
+        [...warpSel.options].forEach((o,i) => { if(o.value === q.warpYarn) warpSel.selectedIndex = i; });
+        document.getElementById('tar').value    = q.tar    || '';
+        document.getElementById('denier').value = q.denier || '';
+        // Weft
+        const weftSel = document.getElementById('weftYarnSelect');
+        [...weftSel.options].forEach((o,i) => { if(o.value === q.weftYarn) weftSel.selectedIndex = i; });
+        document.getElementById('pik').value     = q.pik     || '';
+        document.getElementById('denier2').value  = q.denier2 || '';
+        document.getElementById('panna').value    = q.panna   || '';
+        document.getElementById('tpmCost').value  = q.tpm     || '0';
+    }
+
+    function deleteQuality(i) {
+        if(confirm('Delete Quality?')) {
+            qualityMaster.splice(i, 1);
+            localStorage.setItem('qualityMaster', JSON.stringify(qualityMaster));
+            updateQualityUI();
+        }
+    }
+
     function autoFillDenier(type) {
         const sel = document.getElementById(type === 'warp' ? 'warpYarnSelect' : 'weftYarnSelect');
         const den = document.getElementById(type === 'warp' ? 'denier' : 'denier2');
@@ -192,12 +468,14 @@
     }
 
     async function saveData() {
-        const q = document.getElementById('qualityName').value;
+        const q = document.getElementById('qualityName').value; // works for both select and text
         if(!q) return alert("Quality Name required");
 
         const data = {
             date: new Date().toLocaleDateString('en-GB'),
             quality: q,
+            warpYarn: document.getElementById('warpYarnSelect').value || '',
+            weftYarn: document.getElementById('weftYarnSelect').value || '',
             tar: parseFloat(document.getElementById('tar').value) || 0,
             denier: parseFloat(document.getElementById('denier').value) || 0,
             warpRate: parseFloat(document.getElementById('warpRate').value) || 0,
@@ -220,7 +498,7 @@
         fetch(CLOUD_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(full) });
 
         // Reset form
-        document.getElementById('qualityName').value = '';
+        document.getElementById('qualityName').selectedIndex = 0;
         document.getElementById('tar').value = '';
         document.getElementById('denier').value = '';
         document.getElementById('warpRate').value = '';
@@ -232,6 +510,7 @@
         document.getElementById('warpYarnSelect').selectedIndex = 0;
         document.getElementById('weftYarnSelect').selectedIndex = 0;
         currentIndex = -1;
+        updateSummaryPanel(null);
         alert("Saved!");
     }
 
@@ -239,20 +518,41 @@
         document.getElementById('printDate').innerText = new Date().toLocaleDateString();
         const s = document.getElementById('rSearch').value.toLowerCase();
         const b = document.getElementById('rTableBody'); b.innerHTML = '';
-        entries.forEach((item, index) => {
-            if(item.quality.toLowerCase().includes(s)) {
-                b.innerHTML += `<tr>
-                    <td class="fw-bold" style="text-align: left; padding-left: 3px;">${item.quality}</td>
-                    <td>${item.tar}</td>
-                    <td>${item.r1wet}</td>
-                    <td>${item.r2wet}</td>
-                    <td>${item.totalWt}</td>
-                    <td>${item.warpRate}</td>
-                    <td>${item.weftRate}</td>
-                    <td class="fw-bold text-primary">₹${item.finalCost}</td>
-                    <td class="no-print"><button onclick="deleteEntry(${index})" style="color:red; font-size:14px; font-weight:bold; border:none; background:none;">✖</button></td>
-</tr>`;
-            }
+
+        // Build indexed array, filter by search, sort quality A-Z then date ascending
+        const filtered = entries
+            .map((item, index) => ({ item, index }))
+            .filter(({ item }) => item.quality.toLowerCase().includes(s))
+            .sort((a, b) => {
+                const qCmp = a.item.quality.localeCompare(b.item.quality);
+                if(qCmp !== 0) return qCmp;
+                // Parse DD/MM/YYYY date for sorting
+                const parseDate = d => {
+                    if(!d) return 0;
+                    const parts = d.split('/');
+                    return parts.length === 3 ? new Date(parts[2], parts[1]-1, parts[0]).getTime() : 0;
+                };
+                return parseDate(a.item.date) - parseDate(b.item.date);
+            });
+
+        let prevQuality = null;
+        filtered.forEach(({ item, index }) => {
+            const isNewQuality = item.quality !== prevQuality;
+            prevQuality = item.quality;
+            b.innerHTML += `<tr${ isNewQuality ? ' style="border-top:2px solid #334155;"' : '' }>
+                <td>${item.date || ''}</td>
+                <td class="fw-bold" style="text-align:left;padding-left:3px;">${item.quality}</td>
+                <td>${item.tar}</td>
+                <td>${item.r1wet}</td>
+                <td>${item.r2wet}</td>
+                <td>${item.totalWt}</td>
+                <td>${item.warpRate}</td>
+                <td>${item.weftRate}</td>
+                <td>${item.panna || ''}</td>
+                <td>${item.tpm || 0}</td>
+                <td class="fw-bold text-primary">&#8377;${item.finalCost}</td>
+                <td class="no-print"><button onclick="deleteEntry(${index})" style="color:red;font-size:13px;font-weight:bold;border:none;background:none;">&#10006;</button></td>
+            </tr>`;
         });
     }
 
@@ -263,14 +563,16 @@
     }
 
     function navigateEntry(dir) {
-        
-
-
-
-if(!entries.length) return;
+        if(!entries.length) return;
         currentIndex = (currentIndex === -1) ? (dir === 1 ? 0 : entries.length-1) : (currentIndex + dir + entries.length) % entries.length;
         const i = entries[currentIndex];
-        document.getElementById('qualityName').value = i.quality;
+        const qSel = document.getElementById('qualityName');
+        [...qSel.options].forEach((o,idx) => { if(o.value === i.quality) qSel.selectedIndex = idx; });
+        // Restore yarn selects
+        const wSel = document.getElementById('warpYarnSelect');
+        [...wSel.options].forEach((o,idx) => { if(o.value === (i.warpYarn||'')) wSel.selectedIndex = idx; });
+        const wfSel = document.getElementById('weftYarnSelect');
+        [...wfSel.options].forEach((o,idx) => { if(o.value === (i.weftYarn||'')) wfSel.selectedIndex = idx; });
         document.getElementById('tar').value = i.tar;
         document.getElementById('denier').value = i.denier;
         document.getElementById('warpRate').value = i.warpRate;
@@ -280,6 +582,26 @@ if(!entries.length) return;
         document.getElementById('weftRate').value = i.weftRate;
         document.getElementById('tpmCost').value = i.tpm;
         showTab('tab-entry');
+        updateSummaryPanel(i);
+    }
+
+    function updateSummaryPanel(rec) {
+        const panel = document.getElementById('summaryPanel');
+        if(!rec) { panel.style.display = 'none'; return; }
+        panel.style.display = 'block';
+        document.getElementById('sQuality').textContent      = rec.quality   || '—';
+        document.getElementById('sDate').textContent         = rec.date ? '📅 ' + rec.date : '';
+        document.getElementById('sWarpYarnName').textContent = rec.warpYarn  || 'Warp Yarn';
+        document.getElementById('sWarpRate').textContent     = rec.warpRate != null ? rec.warpRate : '—';
+        document.getElementById('sWeftYarnName').textContent = rec.weftYarn  || 'Weft Yarn';
+        document.getElementById('sWeftRate').textContent     = rec.weftRate != null ? rec.weftRate : '—';
+        document.getElementById('sWarpWt').textContent       = rec.r1wet    || '—';
+        document.getElementById('sWeftWt').textContent       = rec.r2wet    || '—';
+        document.getElementById('sTotalWt').textContent      = rec.totalWt  || '—';
+        document.getElementById('sPik').textContent          = rec.pik      || '—';
+        document.getElementById('sPanna').textContent        = rec.panna    || '—';
+        document.getElementById('sTpm').textContent          = rec.tpm != null ? rec.tpm : '—';
+        document.getElementById('sCost').textContent         = rec.finalCost ? '₹' + rec.finalCost : '—';
     }
 
 
@@ -303,6 +625,7 @@ function syncToSheet() {
     });
 }
     updateYarnUI();
+    updateQualityUI();
 </script>
 </body>
 </html>
